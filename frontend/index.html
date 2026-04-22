@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Image Viewer</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        img { max-width: 100%; height: auto; }
+        .image-container { display: flex; flex-wrap: wrap; }
+        .image { margin: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Docker Image Viewer</h1>
+    <div class="image-container" id="image-container">
+        <!-- Images will be loaded here dynamically -->
+    </div>
+    <script>
+        fetch('/api/images')
+            .then(response => response.json())
+            .then(images => {
+                const container = document.getElementById('image-container');
+                images.forEach(img => {
+                    const imgDiv = document.createElement('div');
+                    imgDiv.className = 'image';
+                    imgDiv.innerHTML = `<img src='${img}' alt='Docker Image'>`;
+                    container.appendChild(imgDiv);
+                });
+            });
+    </script>
+</body>
+</html>
