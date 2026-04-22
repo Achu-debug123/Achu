@@ -16,4 +16,4 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker image
-        run: docker build -t myapp:lates
+        run: docker build -t myapp:latest .
