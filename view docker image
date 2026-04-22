@@ -1,1 +1,23 @@
+import subprocess
+import json
 
+def get_docker_images():
+    try:
+        result = subprocess.run(
+            ["docker", "images", "--format", "json"],
+            capture_output=True,
+            text=True
+        )
+        images = json.loads(result.stdout)
+        
+        print("=== Docker Images ===")
+        print(f"{'Repository':<30} {'Tag':<15} {'Image ID':<15} {'Size':<10}")
+        print("-" * 70)
+        
+        for image in images:
+            print(f"{image['Repository']:<30} {image['Tag']:<15} {image['ID'][:12]:<15} {image['Size']:<10}")
+    except Exception as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
+    get_docker_images()
